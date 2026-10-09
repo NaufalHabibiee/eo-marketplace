@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useLayoutEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
@@ -25,6 +25,10 @@ const NAV = [
 export function SiteHeader() {
   const pathname = usePathname();
   const scrolled = useSyncExternalStore(subscribe, isScrolled, serverScrolled);
+
+  useLayoutEffect(() => {
+    document.documentElement.dataset.js = "1";
+  }, []);
   // Transparent-over-photo vs solid is decided in CSS (globals.css, .site-header): the shell is
   // prerendered without knowing the route, so a pathname check here would mismatch on hydration.
   const link = "text-(--h-muted) hover:text-(--h-text)";

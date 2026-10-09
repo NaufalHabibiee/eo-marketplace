@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, BadgeCheck, Bell, ChevronDown, Inbox, MapPin, MessageCircle } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Bell, HelpCircle, Inbox, MapPin, MessageCircle, Plus } from "lucide-react";
 import type { DirectoryStats } from "@/lib/eo-data";
 import { formatNumber } from "@/lib/format";
 
@@ -66,7 +66,7 @@ export function ForEOs() {
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16">
         <div className="relative order-2 lg:order-1">
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-ink">
-            <Image src="/portfolio/4610564.jpg" alt="" fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
+            <Image src="/portfolio/2576185.jpg" alt="" fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
             <div className="absolute inset-0 bg-linear-to-t from-ink/60 via-transparent to-transparent" aria-hidden />
           </div>
           <div className="absolute -bottom-6 left-4 right-4 rounded-2xl bg-surface p-4 shadow-[0_24px_48px_-20px_rgba(22,24,58,0.5)] ring-1 ring-line sm:left-6 sm:right-auto sm:w-80">
@@ -153,26 +153,59 @@ const FAQS = [
 export function FAQ() {
   return (
     <section id="faq" className="scroll-mt-20 border-t border-line py-20 sm:py-24" aria-labelledby="faq-title">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-        <div>
-          <h2 id="faq-title" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <span className="inline-flex items-center gap-2 rounded-full bg-cobalt-wash px-3 py-1 text-sm font-medium text-cobalt-deep">
+            <HelpCircle className="size-4" aria-hidden />
+            Bantuan
+          </span>
+          <h2 id="faq-title" className="font-display mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
             Pertanyaan yang sering diajukan
           </h2>
-          <p className="mt-4 max-w-sm text-ink-soft">Tidak menemukan jawabannya? Kirim kebutuhanmu dan tim kami akan menghubungimu.</p>
-          <Link href="/request" className="mt-6 inline-flex h-11 items-center rounded-full px-5 text-sm font-semibold ring-1 ring-line-strong hover:bg-surface hover:ring-ink">
-            Hubungi tim kami
-          </Link>
+          <p className="mt-4 max-w-sm text-ink-soft">Jawaban singkat untuk hal yang paling sering ditanyakan klien dan pemilik EO.</p>
+
+          <div className="relative mt-8 overflow-hidden rounded-3xl bg-ink p-6 text-paper">
+            <div className="absolute -right-10 -top-10 size-40 rounded-full bg-cobalt/40 blur-2xl" aria-hidden />
+            <div className="relative">
+              <div className="flex -space-x-2" aria-hidden>
+                {["RK", "AP", "DH"].map((i) => (
+                  <span key={i} className="font-display grid size-10 place-items-center rounded-full bg-cobalt text-xs font-semibold ring-2 ring-ink">
+                    {i}
+                  </span>
+                ))}
+              </div>
+              <p className="font-display mt-4 text-lg font-semibold">Masih ada pertanyaan?</p>
+              <p className="mt-1 text-sm leading-relaxed text-paper/70">Kirim pertanyaan atau kebutuhan acaramu, tim kami membantu di jam kerja.</p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <Link href="/request" className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-semibold text-ink hover:bg-cobalt hover:text-white">
+                  <MessageCircle className="size-4" aria-hidden />
+                  Hubungi tim kami
+                </Link>
+                <Link href="/explore" className="inline-flex h-10 items-center rounded-full px-4 text-sm font-semibold ring-1 ring-white/25 hover:bg-white/10">
+                  Cari EO
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="divide-y divide-line rounded-3xl bg-surface ring-1 ring-line">
+
+        <div className="space-y-3">
           {FAQS.map((f, i) => (
-            <details key={f.q} className="group px-6" open={i === 0}>
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-lg font-semibold [&::-webkit-details-marker]:hidden">
-                {f.q}
-                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-paper transition-transform duration-300 group-open:rotate-180" aria-hidden>
-                  <ChevronDown className="size-4" />
+            <details
+              key={f.q}
+              open={i === 0}
+              className="group rounded-2xl bg-surface ring-1 ring-line transition-[box-shadow,background-color] open:bg-surface open:shadow-[0_20px_40px_-28px_rgba(22,24,58,0.45)] open:ring-cobalt/30"
+            >
+              <summary className="flex cursor-pointer list-none items-center gap-4 px-5 py-5 sm:px-6 [&::-webkit-details-marker]:hidden">
+                <span className="font-display grid size-10 shrink-0 place-items-center rounded-xl bg-paper text-sm font-semibold text-ink-muted transition-colors group-open:bg-cobalt group-open:text-white">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="font-display flex-1 text-base font-semibold sm:text-lg">{f.q}</span>
+                <span className="grid size-8 shrink-0 place-items-center rounded-full ring-1 ring-line transition-transform duration-300 group-open:rotate-45 group-open:bg-ink group-open:text-paper group-open:ring-ink" aria-hidden>
+                  <Plus className="size-4" />
                 </span>
               </summary>
-              <p className="-mt-1 pb-5 pr-10 leading-relaxed text-ink-soft">{f.a}</p>
+              <p className="pb-5 pl-[4.75rem] pr-6 leading-relaxed text-ink-soft sm:pl-[5rem]">{f.a}</p>
             </details>
           ))}
         </div>

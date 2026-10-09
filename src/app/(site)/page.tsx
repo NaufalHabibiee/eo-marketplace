@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Search } from "lucide-react";
 import { CategoryBento } from "@/components/category-bento";
 import { EOPass } from "@/components/eo-pass";
+import { HeroOverlayMarker } from "@/components/hero-overlay-marker";
 import { HowItWorks } from "@/components/how-it-works";
 import { FAQ, ForEOs, PopularCities } from "@/components/home-sections";
 import { EVENT_TYPES } from "@/lib/constants";
@@ -16,6 +17,7 @@ export default async function HomePage() {
   return (
     <>
       <section data-hero-overlay className="relative -mt-16 overflow-hidden bg-ink text-white lg:-mt-20">
+        <HeroOverlayMarker />
         <Image
           src={heroImage}
           alt=""

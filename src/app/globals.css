@@ -128,7 +128,9 @@ body {
   --h-avatar-ring: color-mix(in oklab, var(--cobalt) 20%, transparent);
 }
 
-html:has([data-hero-overlay]) .site-header:not([data-scrolled="true"]) {
+/* Before hydration only the SSR marker exists; afterwards HeroOverlayMarker owns the state. */
+html:not([data-js]):has([data-hero-overlay]) .site-header:not([data-scrolled="true"]),
+html[data-hero="on"] .site-header:not([data-scrolled="true"]) {
   --h-bg: transparent;
   --h-border: transparent;
   --h-shadow: none;
