@@ -25,24 +25,20 @@ const NAV = [
 export function SiteHeader() {
   const pathname = usePathname();
   const scrolled = useSyncExternalStore(subscribe, isScrolled, serverScrolled);
-  // Only the homepage has a photo hero for the bar to sit on.
-  const overlay = pathname === "/" && !scrolled;
-
-  const link = overlay ? "text-white/80 hover:text-white" : "text-ink-soft hover:text-ink";
-  const activeLink = overlay ? "text-white" : "text-ink";
+  // Transparent-over-photo vs solid is decided in CSS (globals.css, .site-header): the shell is
+  // prerendered without knowing the route, so a pathname check here would mismatch on hydration.
+  const link = "text-(--h-muted) hover:text-(--h-text)";
+  const activeLink = "text-(--h-text)";
 
   return (
     <header
-      className={`sticky top-0 z-40 border-b transition-[background-color,border-color,box-shadow] duration-300 ${
-        overlay
-          ? "border-transparent bg-transparent"
-          : "border-line/70 bg-paper/90 shadow-[0_8px_24px_-20px_rgba(22,24,58,0.5)] backdrop-blur-md"
-      }`}
+      data-scrolled={scrolled ? "true" : "false"}
+      className="site-header sticky top-0 z-40 border-b border-(--h-border) bg-(--h-bg) shadow-(--h-shadow) backdrop-blur-(--h-blur) transition-[background-color,border-color,box-shadow] duration-300"
     >
       <div className="mx-auto grid h-16 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-2 sm:gap-4 px-4 sm:px-6 lg:h-20 lg:grid-cols-[1fr_auto_1fr]">
         <Link href="/" className="flex min-w-0 items-center gap-2 justify-self-start rounded-lg sm:gap-2.5" aria-label="EO Marketplace, ke beranda">
-          <BrandMark className="size-8 shrink-0 sm:size-9" tone={overlay ? "light" : "dark"} />
-          <span className={`font-poppins truncate text-[1.05rem] font-semibold sm:text-[1.2rem] tracking-tight transition-colors ${overlay ? "text-white" : "text-ink"}`}>
+          <BrandMark className="size-8 shrink-0 sm:size-9" tone="header" />
+          <span className={`font-poppins truncate text-[1.05rem] font-semibold sm:text-[1.2rem] tracking-tight text-(--h-text) transition-colors`}>
             EO Marketplace
           </span>
         </Link>
@@ -67,11 +63,11 @@ export function SiteHeader() {
           <Link href="/explore" className={`grid size-9 place-items-center rounded-full transition-colors lg:hidden ${link}`} aria-label="Cari EO">
             <Search className="size-5" />
           </Link>
-          <AccountMenu overlay={overlay} />
+          <AccountMenu />
           <Link
             href="/request"
             className={`font-poppins inline-flex items-center whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-medium sm:px-5 transition-colors lg:px-7 lg:py-3 lg:text-[0.95rem] ${
-              overlay ? "bg-white text-ink hover:bg-cobalt hover:text-white" : "bg-ink text-paper hover:bg-cobalt"
+              "bg-(--h-btn-bg) text-(--h-btn-fg) hover:bg-cobalt hover:text-white"
             }`}
           >
             <span className="sm:hidden">Penawaran</span>

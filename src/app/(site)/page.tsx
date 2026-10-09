@@ -15,7 +15,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="relative -mt-16 overflow-hidden bg-ink text-white lg:-mt-20">
+      <section data-hero-overlay className="relative -mt-16 overflow-hidden bg-ink text-white lg:-mt-20">
         <Image
           src={heroImage}
           alt=""

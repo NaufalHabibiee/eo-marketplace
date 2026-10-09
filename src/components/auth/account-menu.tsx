@@ -18,7 +18,7 @@ function toUser(user: { email?: string; user_metadata?: Record<string, unknown> 
 }
 
 /** Header slot: "Masuk" for guests, an initials button with a small menu for signed-in users. */
-export function AccountMenu({ overlay }: { overlay: boolean }) {
+export function AccountMenu() {
   const router = useRouter();
   const [user, setUser] = useState<SessionUser | undefined>(undefined);
   const [open, setOpen] = useState(false);
@@ -47,7 +47,7 @@ export function AccountMenu({ overlay }: { overlay: boolean }) {
 
   if (user === undefined) return <span className="w-9 sm:w-16" aria-hidden />;
 
-  const tone = overlay ? "text-white/85 hover:text-white" : "text-ink-soft hover:text-ink";
+  const tone = "text-(--h-muted) hover:text-(--h-text)";
 
   if (!user) {
     return (
@@ -67,7 +67,7 @@ export function AccountMenu({ overlay }: { overlay: boolean }) {
         aria-haspopup="menu"
         aria-label={`Akun ${user.name}`}
         className={`font-display grid size-10 place-items-center rounded-full text-sm font-semibold transition-colors ${
-          overlay ? "bg-white/15 text-white ring-1 ring-white/40 hover:bg-white/25" : "bg-cobalt-wash text-cobalt-deep ring-1 ring-cobalt/20 hover:bg-cobalt hover:text-white"
+          "bg-(--h-avatar-bg) text-(--h-avatar-fg) ring-1 ring-(--h-avatar-ring) hover:bg-cobalt hover:text-white"
         }`}
       >
         {initials(user.name)}

@@ -112,6 +112,37 @@ body {
   font-family: var(--font-poppins), system-ui, sans-serif;
 }
 
+/* Site header: solid by default, transparent over a page's photo hero until the user scrolls. */
+.site-header {
+  --h-bg: color-mix(in oklab, var(--paper) 90%, transparent);
+  --h-border: color-mix(in oklab, var(--line) 70%, transparent);
+  --h-shadow: 0 8px 24px -20px rgba(22, 24, 58, 0.5);
+  --h-blur: 12px;
+  --h-text: var(--ink);
+  --h-muted: var(--ink-soft);
+  --h-logo-slot: var(--paper);
+  --h-btn-bg: var(--ink);
+  --h-btn-fg: var(--paper);
+  --h-avatar-bg: var(--cobalt-wash);
+  --h-avatar-fg: var(--cobalt-deep);
+  --h-avatar-ring: color-mix(in oklab, var(--cobalt) 20%, transparent);
+}
+
+html:has([data-hero-overlay]) .site-header:not([data-scrolled="true"]) {
+  --h-bg: transparent;
+  --h-border: transparent;
+  --h-shadow: none;
+  --h-blur: 0px;
+  --h-text: #fff;
+  --h-muted: rgba(255, 255, 255, 0.8);
+  --h-logo-slot: var(--ink);
+  --h-btn-bg: #fff;
+  --h-btn-fg: var(--ink);
+  --h-avatar-bg: rgba(255, 255, 255, 0.15);
+  --h-avatar-fg: #fff;
+  --h-avatar-ring: rgba(255, 255, 255, 0.4);
+}
+
 @layer components {
   /* Ticket perforation used to separate a pass body from its tear-off stub. */
   .perforation {
